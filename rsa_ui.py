@@ -1,4 +1,5 @@
 from rsa_keys import *
+signatures = []
 
 def privateUserMenu(publicKey, privateKey):
 
@@ -26,6 +27,7 @@ def privateUserMenu(publicKey, privateKey):
             print(f"Public Key: {publicKey}")
             print(f"Private Key: {privateKey}")
             signature = generateSignature(message, privateKey)
+            signatures.append(signature)
             print("Signature:", signature)
       
         elif choice == '4':
@@ -38,7 +40,7 @@ def privateUserMenu(publicKey, privateKey):
             break
     
         else:
-            print("Invalid choice")
+            print('Invalid choice')
 
 def publicUserMenu(publicKey, privateKey):
     while True:
@@ -53,12 +55,12 @@ def publicUserMenu(publicKey, privateKey):
             encrypted = encrypt(message, publicKey)
             print("Encrypted message:", encrypted)
         elif choice == '2':
-            if result == '':
-                print('There are no signature to authenticate.') 
+            if signature.length() <= 0:
+                print('There are no signatures to authenticate.') 
             else:
-                signature = input("Enter signature: ")
+                print('Signature choices: ')
+                signature = displayList(signatures)
                 result = verifySignature(message, signature, publicKey)
                 print("Signature valid:", result)
-        
         elif choice == '3':
             break

@@ -1,6 +1,6 @@
 from rsa_keys import *
 
-def privateUserMenu(publicKey):
+def privateUserMenu(publicKey, privateKey):
 
     while True:
         print('As the owner of the keys, what would you like to do?')
@@ -23,6 +23,8 @@ def privateUserMenu(publicKey):
       
         elif choice == '3':
             message = input("Enter message to sign: ")
+            print(f"Public Key: {publicKey}")
+            print(f"Private Key: {privateKey}")
             signature = generateSignature(message, privateKey)
             print("Signature:", signature)
       

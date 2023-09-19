@@ -4,8 +4,8 @@ from rsa_ui import *
 print("RSA Program")
 
 # Generate keys
-publicKey, privateKey = generateKeys() 
-  
+publicKey, privateKey = generateKeys()
+
 while True:
     print('Please select your user type: ')
     print(' 1. A public user') 
@@ -14,7 +14,7 @@ while True:
     choice = input('Enter your choice:')
 
     if choice == '1':
-        publicUserMenu(publicKey)
+        publicUserMenu(publicKey, privateKey)
     elif choice == '2':
         privateUserMenu(publicKey, privateKey)
     elif choice == '3':

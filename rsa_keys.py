@@ -4,6 +4,7 @@
 '''
     
 import random as rand
+import math
 
 def generateKeys():
   '''RSA key generation algorithm. Source: lecture notes slide '''
@@ -24,22 +25,40 @@ def generateKeys():
   
   return ((public_key, n), (private_key, n))
 
-def encrypt(msg, public_key):
+# TODO: Add the prime number validation function.
+def is_prime(num):
+    '''Verify that a number is prime. Source: lecture notes slide 59.'''
+    if num == 2:
+        return True
+    for b in range(2, math.floor(math.sqrt(num))):
+        if gcd(num, b)[2] > 1:
+            return False
+    return True
+
+def encrypt(ciphertext, public_key):
     
   '''RSA encryption equation. Source: lecture notes slide '''
   # Declare variables.
-  ciphertext = ''
+  output = []
   key, n = public_key
   
   #Iterate over ever character within the parameter 'msg'.
-  for c in msg:
-    ciphertext += chr(pow(ord(c), key, n))
+  for c in ciphertext:
+    output.append(pow(ord(c), key, n))
 
-  return ciphertext
+  return output
 
 def decrypt(ciphertext, private_key):
   '''RSA decryption equation.'''
-  return encrypt(ciphertext, private_key)
+  # Declare variables.
+  msg = ''
+  (key, ring) = private_key
+
+  # Iterate over the elements of the parameter 'ciphertext'.
+  for i in ciphertext:
+     msg += chr(pow(i, key, ring))
+     
+  return msg
 
 def generateSignature(message, private_key):
   '''Encrypt the message into a signature for owner verification.'''
@@ -49,33 +68,25 @@ def verifySignature(message, signature, public_key):
   '''Decrypt a signature for owner verification.'''
   return bool(message == decrypt(signature, public_key))
 
-def isPrime(num):
-  '''Determines if a number is prime. Source: lecture notes slide 60'''
-  for i in range(1, num):
-    if (pow(i, (num - 1), num) > 1):
-      return False
-  return True
-
 def generatePseudoPrime(min, max, k):
-  '''Generates a pseudo prime number. Source: lecture notes slide 65'''
-  p = rand.randint(min, max)
+  '''Generates a pseudo prime number. Source: lecture notes slide 65.'''
+  prime = rand.randint(min, max)
   is_prime = False
   while not is_prime:
-    for i in range(k):
-      j = rand.randint(2, p)
-      if (pow(j, (p - 1), p) == 1):
-        is_prime = True
-        break
-      else:
-        p = rand.randint(min, max)
-  return p
+      prime = rand.randint(min, max)
+      is_prime = True
+      for i in range(k):
+          if pow(i, (prime - 1), prime) > 1:
+              is_prime = False
+              break
+  return prime
 
 def generatePrimeNumber(min, max, k=10000):
   '''Generates a random prime number.'''
-  num = generatePseudoPrime(min, max, k)
-  while not isPrime(num):
-    num = generatePseudoPrime(min, max, k)
-  return num
+  prime = generatePseudoPrime(min, max, k)
+  while not is_prime(prime):
+      prime = generatePseudoPrime(min, max, k)
+  return prime
 
 def gcd(a, b):
   '''Finds the gcd of two numbers. Source: lecture notes slide 36'''

@@ -15,7 +15,7 @@ while True:
     choice = input('Enter your choice:')
 
     if choice == '1':
-        publicUserMenu(publicKey, privateKey)
+        publicUserMenu(publicKey)
     elif choice == '2':
         privateUserMenu(publicKey, privateKey)
     elif choice == '3':

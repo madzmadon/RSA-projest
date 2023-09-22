@@ -25,7 +25,6 @@ def generateKeys():
   
   return (public_key, private_key, n)
 
-# TODO: Add the prime number validation function.
 def is_prime(num):
     '''Verify that a number is prime. Source: lecture notes slide 59.'''
     if num == 2:
@@ -36,7 +35,6 @@ def is_prime(num):
     return True
 
 def encrypt(ciphertext, key, n):
-    
   '''RSA encryption equation. Source: Lecture notes slide 23.'''
   # Declare variables.
   output = []

@@ -39,6 +39,7 @@ def promptList(options, message = 'Invalid selection'):
     return (choice - 1)
 
 def privateUserMenu(keys):
+    '''Handles the owner menu.'''
 
     choice = ''    
 
@@ -68,7 +69,6 @@ def privateUserMenu(keys):
             message = input("Enter message to sign: ")
             signature = generateSignature(message, keys.getPrivateKey(), keys.getRing())
             signatures.append(signature)
-            print('Signature:', signature)
             print('Message signed and sent.')
 
         #Show the keys
@@ -89,7 +89,10 @@ def privateUserMenu(keys):
             print('Invalid choice')
 
 def publicUserMenu(keys):
+    '''Handles the public user menu.'''
+    
     choice = ''
+    
     while True:
         print('\nAs a public user, what would you like to do?')
         print('1. Send an encrypted message')
@@ -115,9 +118,6 @@ def publicUserMenu(keys):
                     print("Signature valid:", result)
                 except:
                     print("Unable to verify signature, keys have likely changed.")
-                (message, signature) = signatures[promptList([ sign for (sign, encodded) in signatures])]
-                result = verifySignature(message, signature, keys.getPublicKey(), keys.getRing())
-                print("Signature valid:", result)
 
         elif choice == '3':
             break

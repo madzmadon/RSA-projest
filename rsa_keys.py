@@ -7,7 +7,7 @@ import random as rand
 import math
 
 def generateKeys():
-  '''RSA key generation algorithm. Source: lecture notes slide '''
+  '''RSA key generation algorithm. Source: lecture notes slide 22-24.'''
   # Declare variables.
   prime1 = generatePrimeNumber(1000000, 10000000, 100000)
   prime2 = generatePrimeNumber(1000000, 10000000, 100000)
@@ -30,14 +30,14 @@ def is_prime(num):
     '''Verify that a number is prime. Source: lecture notes slide 59.'''
     if num == 2:
         return True
-    for b in range(2, math.floor(math.sqrt(num))):
+    for b in range(2, math.floor(math.sqrt(num)) + 1):
         if gcd(num, b)[2] > 1:
             return False
     return True
 
 def encrypt(ciphertext, key, n):
     
-  '''RSA encryption equation. Source: lecture notes slide '''
+  '''RSA encryption equation. Source: Lecture notes slide 23.'''
   # Declare variables.
   output = []
   
@@ -87,7 +87,7 @@ def generatePrimeNumber(min, max, k=10000):
   return prime
 
 def gcd(a, b):
-  '''Finds the gcd of two numbers. Source: lecture notes slide 36'''
+  '''Finds the gcd of two numbers. Source: lecture notes slide 36.'''
   if b == 0:
     return (1, 0, a)
   (x, y, d) = gcd(b, a%b)

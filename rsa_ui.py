@@ -3,6 +3,7 @@ messages = []
 signatures = []
 
 class RSA_Keys:
+    '''Container for the public and private keys as well as the ring value.'''
     def __init__(self, public, private, ring):
         self.public = public
         self.private = private
@@ -53,9 +54,12 @@ def privateUserMenu(keys):
             if len(messages) <= 0:
                 print("There are no messages.")
             else:
-                ciphertext = messages[promptList([f'Length {len(i)}' for i in messages], "Invalid selection")]
-                decrypted = decrypt(ciphertext, keys.getPrivateKey(), keys.getRing())
-                print(f"Decrypted Message: {decrypted}")
+                ciphertext = messages[promptList([f'Length {len(i)}' for i in messages])]
+                try:
+                    decrypted = decrypt(ciphertext, keys.getPrivateKey(), keys.getRing())
+                    print(f"Decrypted Message: {decrypted}")
+                except:
+                    print("Unable to decrypt message keys have likely changed.")    
       
         elif choice == '2':
             message = input("Enter message to sign: ")
@@ -92,6 +96,9 @@ def publicUserMenu(keys):
             if len(signatures) <= 0:
                 print('There are no signatures to authenticate.') 
             else:
-                (message, signature) = signatures[promptList([ sign for (sign, encodded) in signatures])]
-                result = verifySignature(message, signature, keys.getPublicKey(), keys.getRing())
-                print("Signature valid:", result)
+                try:
+                    (message, signature) = signatures[promptList([ sign for (sign, encodded) in signatures])]
+                    result = verifySignature(message, signature, keys.getPublicKey(), keys.getRing())
+                    print("Signature valid:", result)
+                except:
+                    print("Unable to verify signature, keys have likely changed.")

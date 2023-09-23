@@ -54,7 +54,7 @@ def decrypt(ciphertext, key, n):
   for i in ciphertext:
      msg += chr(pow(i, key, n))
      
-  return msg
+  return msg.upper()
 
 def generateSignature(message, private_key, n):
   '''Encrypt the message into a signature for owner verification.'''

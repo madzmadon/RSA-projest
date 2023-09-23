@@ -21,6 +21,7 @@ while True:
     elif choice == '2':
         privateUserMenu(keys)
     elif choice == '3':
+        print('Goodbye for now!')
         break
     else:
         print('Invalid input')

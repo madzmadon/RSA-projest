@@ -60,7 +60,7 @@ def privateUserMenu(keys):
                 ciphertext = messages[promptList([f'Length {len(i)}' for i in messages])]
                 try:
                     decrypted = decrypt(ciphertext, keys.getPrivateKey(), keys.getRing())
-                    print(f"Decrypted Message: {decrypted}")
+                    print(f"Decrypted Message: {decrypted.upper()}")
                 except:
                     print("Unable to decrypt message keys have likely changed.")    
       
